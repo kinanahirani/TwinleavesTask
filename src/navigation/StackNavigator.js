@@ -1,15 +1,23 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import LoginScreen from '../screens/LoginScreen';
 import {createStackNavigator} from '@react-navigation/stack';
+import ProductsScreen from '../screens/ProductsScreen';
+import SplashScreen from '../screens/SplashScreen';
+import CartScreen from '../screens/CartScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Stack = createStackNavigator();
 
 const StackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="LoginScreen"
+      initialRouteName="SplashScreen"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="SplashScreen" component={SplashScreen} />
+      <Stack.Screen name="ProductsScreen" component={ProductsScreen} />
+      <Stack.Screen name="CartScreen" component={CartScreen} />
+      <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
     </Stack.Navigator>
   );
 };
