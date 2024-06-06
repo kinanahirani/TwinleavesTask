@@ -12,6 +12,10 @@ import {
   moderateScale,
   verticalScale,
 } from '../helpers/sizeHelpers';
+import RegularButton from './RegularButton';
+import {useNavigation} from '@react-navigation/native';
+import ProductButton from './ProductButton';
+import QuantityButton from './QuantityButton';
 
 const ProductCard = ({
   id,
@@ -26,10 +30,10 @@ const ProductCard = ({
   const cartItem = useSelector(state =>
     state.cart.find(item => item.id === id),
   );
-
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const initialQuantity = cartItem ? cartItem.quantity : 0;
   const [quantity, setQuantity] = useState(initialQuantity);
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (cartItem) {
@@ -62,7 +66,18 @@ const ProductCard = ({
   };
 
   return (
-    <View style={styles.card}>
+    <TouchableOpacity
+      style={styles.card}
+      activeOpacity={0.7}
+      onPress={() =>
+        navigation.navigate('ProductDetailsScreen', {
+          id,
+          name,
+          category,
+          mrp,
+          discount,
+        })
+      }>
       {discount && (
         <View style={styles.discountBadge}>
           <Text style={styles.discountText}>{discount}% OFF</Text>
@@ -85,47 +100,32 @@ const ProductCard = ({
         <View style={{flexGrow: 1}} />
         <Text style={styles.slogan}>Har Din Sasta!</Text>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <TouchableOpacity
-            style={{
-              padding: 10,
-              marginTop: 10,
-              borderRadius: 5,
-              borderColor: 'gray',
-              borderWidth: 1,
-              marginRight: 5,
-            }}>
-            <Feather name="bookmark" size={moderateScale(18)} color={'black'} />
-          </TouchableOpacity>
+          <RegularButton name={'bookmark'} IconComp={Feather} />
           {isAddedToCart ? (
             <View style={styles.quantityContainer}>
-              <TouchableOpacity
-                onPress={handleDecrease}
-                style={styles.quantityButton}>
-                <Text style={styles.buttonText}>-</Text>
-              </TouchableOpacity>
+              <QuantityButton onPress={handleDecrease} title={'-'} />
               <Text style={styles.quantityText}>{cartItem?.quantity || 0}</Text>
-              <TouchableOpacity
-                onPress={handleIncrease}
-                style={styles.quantityButton}>
-                <Text style={styles.buttonText}>+</Text>
-              </TouchableOpacity>
+              <QuantityButton onPress={handleIncrease} title={'+'} />
             </View>
           ) : (
-            <TouchableOpacity onPress={handleAdd} style={styles.addButton}>
-              <Text style={styles.addButtonText}>Add</Text>
-            </TouchableOpacity>
+            <ProductButton
+              title="Add"
+              onPress={handleAdd}
+              buttonStyle={styles.addButton}
+              textStyle={styles.addButtonText}
+            />
           )}
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    height: '43%',
+    height: verticalScale(350),
     backgroundColor: 'white',
-    borderRadius: 8,
+    borderRadius: moderateScale(8),
     padding: moderateScale(10),
     margin: moderateScale(10),
     elevation: 3,
@@ -138,8 +138,8 @@ const styles = StyleSheet.create({
     top: 10,
     left: 10,
     backgroundColor: 'green',
-    padding: 5,
-    borderRadius: 3,
+    padding: moderateScale(5),
+    borderRadius: moderateScale(3),
     zIndex: 1,
   },
   discountText: {
@@ -148,57 +148,57 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 100,
+    height: verticalScale(100),
     borderRadius: 8,
   },
   infoContainer: {
-    marginTop: 10,
+    marginTop: verticalScale(10),
     flex: 1,
   },
   category: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     color: '#666',
   },
   name: {
     fontSize: moderateScale(13),
     fontWeight: 'bold',
-    marginVertical: 5,
+    marginVertical: verticalScale(5),
     color: 'black',
   },
   quantity: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#666',
   },
   priceContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 5,
+    marginVertical: verticalScale(5),
   },
   mrp: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
     color: '#000',
   },
   originalPrice: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#999',
     textDecorationLine: 'line-through',
-    marginLeft: 5,
+    marginLeft: horizontalScale(5),
   },
   slogan: {
     backgroundColor: '#dfffdf',
     color: 'green',
     textAlign: 'center',
-    padding: 5,
-    borderRadius: 3,
-    marginTop: 5,
+    padding: moderateScale(5),
+    borderRadius: moderateScale(3),
+    marginTop: verticalScale(5),
   },
   addButton: {
     backgroundColor: 'red',
-    padding: 10,
-    borderRadius: 5,
+    padding: moderateScale(10),
+    borderRadius: moderateScale(5),
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: verticalScale(10),
     flex: 1,
   },
   addButtonText: {
@@ -208,26 +208,15 @@ const styles = StyleSheet.create({
   quantityContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: verticalScale(10),
     flex: 1,
     justifyContent: 'space-between',
     borderWidth: 1,
     borderColor: 'red',
   },
-  quantityButton: {
-    backgroundColor: 'red',
-    padding: 10,
-    width: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
   quantityText: {
-    marginHorizontal: 10,
-    fontSize: 16,
+    marginHorizontal: horizontalScale(10),
+    fontSize: moderateScale(16),
     color: 'black',
   },
 });

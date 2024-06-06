@@ -1,19 +1,21 @@
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
-import Feather from 'react-native-vector-icons/Feather';
-import AntDesign from 'react-native-vector-icons/Feather';
-import {moderateScale} from '../helpers/sizeHelpers';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../helpers/sizeHelpers';
 
 const RegularButton = ({name, onPress, IconComp}) => {
   return (
     <TouchableOpacity
       style={{
-        padding: 10,
-        marginTop: 10,
-        borderRadius: 5,
+        padding: moderateScale(10),
+        marginTop: verticalScale(10),
+        borderRadius: moderateScale(5),
         borderColor: 'gray',
         borderWidth: 1,
-        marginRight: 5,
+        marginRight: horizontalScale(5),
       }}
       onPress={onPress}>
       <IconComp name={name} size={moderateScale(18)} color={'black'} />

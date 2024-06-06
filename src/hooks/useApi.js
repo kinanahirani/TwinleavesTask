@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const useApi = () => {
-  const getProducts = async (page, pageSize = 10) => {
+  const getProducts = async (page, pageSize) => {
     try {
       const response = await axios.post(
         'https://catalog-management-system-dev-ak3ogf6zea-uc.a.run.app/cms/filter/product',
@@ -13,7 +13,6 @@ export const useApi = () => {
           },
         },
       );
-      // Assuming the response structure you provided
       if (response.data && response.data.products) {
         return response.data.products;
       } else {

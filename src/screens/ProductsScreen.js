@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {useApi} from '../hooks/useApi';
 import ProductCard from '../components/ProductCard';
-import {moderateScale} from '../helpers/sizeHelpers';
+import {moderateScale, verticalScale} from '../helpers/sizeHelpers';
 import RegularButton from '../components/RegularButton';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -27,7 +27,7 @@ const ProductsScreen = ({navigation}) => {
 
   const fetchProducts = async () => {
     try {
-      const data = await getProducts(page);
+      const data = await getProducts(page, 10);
       setProducts(prevProducts => [...prevProducts, ...data]);
     } catch (err) {
       setError(err.message);
@@ -89,10 +89,10 @@ const ProductsScreen = ({navigation}) => {
       </View>
       <FlatList
         data={products}
-        keyExtractor={(item, index) => index}
+        keyExtractor={(item, index) => item.gtin}
         renderItem={({item, index}) => (
           <ProductCard
-            id={index}
+            id={item.gtin}
             name={item.name}
             category={item.main_category}
             mrp={item.mrp?.mrp}
@@ -112,14 +112,14 @@ const ProductsScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: moderateScale(10),
     backgroundColor: '#rgba(0, 0, 0, 0.2)',
   },
   errorText: {
     color: 'red',
-    fontSize: 16,
+    fontSize: moderateScale(16),
     textAlign: 'center',
-    marginTop: 20,
+    marginTop: verticalScale(20),
   },
 });
 

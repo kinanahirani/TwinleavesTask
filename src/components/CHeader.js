@@ -12,18 +12,28 @@ import {
   moderateScale,
   verticalScale,
 } from '../helpers/sizeHelpers';
+import {useNavigation} from '@react-navigation/native';
 
-const CHeader = ({title, navigation}) => {
+const CHeader = ({title, extraStyles, onPress}) => {
+  const navigation = useNavigation();
+  const handlePress = () => {
+    if (onPress) {
+      onPress();
+    } else {
+      navigation.goBack();
+    }
+  };
   return (
     <SafeAreaView
       style={{
         alignItems: 'center',
         height: verticalScale(50),
         flexDirection: 'row',
-        backgroundColor: 'white',
+        backgroundColor: 'transparent',
+        ...extraStyles,
       }}>
       <TouchableOpacity
-        onPress={() => navigation.goBack()}
+        onPress={handlePress}
         activeOpacity={0.7}
         style={{padding: moderateScale(10), marginLeft: horizontalScale(5)}}>
         <Feather name="arrow-left" size={moderateScale(24)} color={'black'} />
