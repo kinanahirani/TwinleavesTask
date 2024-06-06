@@ -94,7 +94,7 @@ const ProductDetailsScreen = () => {
           Price: <Text style={styles.detailBoldText}>₹{product.mrp}</Text>
         </Text>
         <View style={styles.quantityRow}>
-          <Text style={styles.detailText}>Quantity: </Text>
+          <Text style={styles.qtyTxt}>Quantity: </Text>
           {isAddedToCart ? (
             <View style={styles.quantityContainer}>
               <QuantityButton onPress={handleDecrease} title={'-'} />
@@ -147,8 +147,8 @@ const styles = StyleSheet.create({
   quantityRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: verticalScale(20),
   },
+  qtyTxt: {color: 'black', fontSize: moderateScale(15)},
   quantityContainer: {
     flexDirection: 'row',
     alignItems: 'center',

@@ -103,9 +103,17 @@ const ProductCard = ({
           <RegularButton name={'bookmark'} IconComp={Feather} />
           {isAddedToCart ? (
             <View style={styles.quantityContainer}>
-              <QuantityButton onPress={handleDecrease} title={'-'} />
+              <QuantityButton
+                onPress={handleDecrease}
+                title={'-'}
+                btnStyles={styles.btn}
+              />
               <Text style={styles.quantityText}>{cartItem?.quantity || 0}</Text>
-              <QuantityButton onPress={handleIncrease} title={'+'} />
+              <QuantityButton
+                onPress={handleIncrease}
+                title={'+'}
+                btnStyles={styles.btn}
+              />
             </View>
           ) : (
             <ProductButton
@@ -196,7 +204,7 @@ const styles = StyleSheet.create({
   addButton: {
     backgroundColor: 'red',
     padding: moderateScale(10),
-    borderRadius: moderateScale(5),
+    borderRadius: 0,
     alignItems: 'center',
     marginTop: verticalScale(10),
     flex: 1,
@@ -218,6 +226,10 @@ const styles = StyleSheet.create({
     marginHorizontal: horizontalScale(10),
     fontSize: moderateScale(16),
     color: 'black',
+  },
+  btn: {
+    height: verticalScale(37),
+    flex: 0,
   },
 });
 

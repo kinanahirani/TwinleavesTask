@@ -34,7 +34,7 @@ const BarcodeScannerScreen = ({navigation}) => {
         product => product.gtin === data,
       );
       if (filteredProducts.length > 0) {
-        navigation.navigate('ProductDetailsScreen', {
+        navigation.replace('ProductDetailsScreen', {
           id: filteredProducts[0].gtin,
           name: filteredProducts[0].name,
           category: filteredProducts[0].main_category,
@@ -42,12 +42,8 @@ const BarcodeScannerScreen = ({navigation}) => {
           discount: filteredProducts[0].discount,
         });
       } else {
-        Alert.alert('Error', 'Product not found', [
-          {
-            text: 'OK',
-            onPress: () => setProductNotFound(false),
-          },
-        ]);
+        Alert.alert('Error', 'Product not found');
+        navigation.pop();
       }
     } catch (error) {
       Alert.alert('Error', 'Failed to fetch product details');
@@ -55,6 +51,20 @@ const BarcodeScannerScreen = ({navigation}) => {
       setLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: 'white',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <ActivityIndicator size="large" color="black" />
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -85,11 +95,6 @@ const BarcodeScannerScreen = ({navigation}) => {
             buttonNegative: 'Cancel',
           }}
         />
-        {loading && (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color="white" />
-          </View>
-        )}
         <CButton
           title={`Flash ${flash ? 'OFF' : 'ON'}`}
           iconName="flash"

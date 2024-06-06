@@ -41,7 +41,7 @@ const CartScreen = () => {
             title={'-'}
             btnStyles={styles.btn}
           />
-          <Text style={styles.quantityText}>{item.quantity}</Text>
+          <Text style={styles.itemQuantity}>{item.quantity}</Text>
           <QuantityButton
             onPress={() => dispatch(increaseQuantity({id: item.id}))}
             title={'+'}
