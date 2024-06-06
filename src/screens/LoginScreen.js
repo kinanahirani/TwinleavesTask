@@ -8,10 +8,15 @@ import {BUTTON_TITLE, GOOGLE_AUTH} from '../constants/constants';
 import {useNavigation} from '@react-navigation/native';
 import CButton from '../components/CButton';
 import {Colors} from '../theme/colors';
-import {moderateScale} from '../helpers/sizeHelpers';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../helpers/sizeHelpers';
 import {useDispatch, useSelector} from 'react-redux';
 import {setUserData} from '../redux/slices/userSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CHeader from '../components/CHeader';
 
 GoogleSignin.configure({
   webClientId: GOOGLE_AUTH.CLIENT_ID,
@@ -63,10 +68,24 @@ const LoginScreen = () => {
         }}>
         Please Login via Google!
       </Text>
-      <CButton
+      {/* <CButton
         title={BUTTON_TITLE.GOOGLE}
         extraStyles={styles.googleBtn}
         onPress={() => handleGoogleSignIn({navigation})}
+      /> */}
+      <CButton
+        title={BUTTON_TITLE.GOOGLE}
+        iconName="google"
+        iconLibrary="FontAwesome"
+        onPress={() => handleGoogleSignIn({navigation})}
+        extraStyles={{
+          height: verticalScale(50),
+          borderRadius: moderateScale(25),
+          width: horizontalScale(200),
+          backgroundColor: Colors.PALE_RED,
+        }}
+        extraFontStyles={{fontSize: moderateScale(17)}}
+        iconSize={moderateScale(20)}
       />
     </SafeAreaView>
   );

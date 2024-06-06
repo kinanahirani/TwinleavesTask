@@ -5,6 +5,7 @@ import ProductsScreen from '../screens/ProductsScreen';
 import SplashScreen from '../screens/SplashScreen';
 import CartScreen from '../screens/CartScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import BarcodeScannerScreen from '../screens/BarcodeScannerScreen';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,10 @@ const StackNavigator = () => {
       <Stack.Screen name="ProductsScreen" component={ProductsScreen} />
       <Stack.Screen name="CartScreen" component={CartScreen} />
       <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <Stack.Screen
+        name="BarcodeScannerScreen"
+        component={BarcodeScannerScreen}
+      />
     </Stack.Navigator>
   );
 };

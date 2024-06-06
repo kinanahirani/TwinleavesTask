@@ -1,9 +1,10 @@
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import Feather from 'react-native-vector-icons/Feather';
+import AntDesign from 'react-native-vector-icons/Feather';
 import {moderateScale} from '../helpers/sizeHelpers';
 
-const RegularButton = ({name, onPress}) => {
+const RegularButton = ({name, onPress, IconComp}) => {
   return (
     <TouchableOpacity
       style={{
@@ -15,7 +16,7 @@ const RegularButton = ({name, onPress}) => {
         marginRight: 5,
       }}
       onPress={onPress}>
-      <Feather name={name} size={moderateScale(18)} color={'black'} />
+      <IconComp name={name} size={moderateScale(18)} color={'black'} />
     </TouchableOpacity>
   );
 };
